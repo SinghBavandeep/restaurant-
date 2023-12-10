@@ -137,7 +137,10 @@ $dishData = query_database($queryDishes);
           ?>
         </select>
       </div>
-
+      <!-- Add Plat Button -->
+      <div class="w3-padding-large w3-center">
+        <a href="add_plat.php" class="w3-button w3-black w3-round-large">Add Plat</a>
+      </div>
       <!-- Display Dishes -->
       <div class="w3-content w3-justify" id="about">
         <table class="w3-table w3-bordered">

@@ -160,7 +160,7 @@ function test_input($data)
       <i class="fa fa-plus-circle w3-xxlarge"></i>
       <p>Plat</p>
     </a>
-    <a href="add_plat.php" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
       <i class="fa fa-plus-circle w3-xxlarge"></i>
       <p>Add2</p>
     </a>
