@@ -25,13 +25,13 @@ function query_database($q)
 }
 
 // Fetch all distinct categories from the database
-$queryCategories = "SELECT DISTINCT idCategorie FROM plat";
+$queryCategories = "SELECT DISTINCT Nom FROM categorie";
 $categories = query_database($queryCategories);
 
 // Fetch dishes based on the selected idCategorie
-$idCategorieFilter = isset($_GET['idCategorie']) ? $_GET['idCategorie'] : null;
-$whereClause = $idCategorieFilter ? "WHERE idCategorie = '$idCategorieFilter'" : "";
-$queryDishes = "SELECT * FROM plat $whereClause";
+$nomCategorieFilter = isset($_GET['nomCategorie']) ? $_GET['nomCategorie'] : null;
+$whereClause = $nomCategorieFilter ? "WHERE Categorie.Nom = '$nomCategorieFilter'" : "";
+$queryDishes = "SELECT plat.Nom as PlatNom, Categorie.Nom as CategorieNom, prix FROM plat JOIN categorie ON plat.idCategorie = categorie.idCategorie $whereClause";
 $dishData = query_database($queryDishes);
 ?>
 
@@ -124,15 +124,15 @@ $dishData = query_database($queryDishes);
         <h1 class="w3-jumbo"><span class="w3-hide-small">Plat</span></h1>
       </header>
 
-      <!-- idCategorie Filter -->
+      <!-- nomCategorie Filter -->
       <div>
-        <label for="idCategorie">Select a category:</label>
-        <select id="idCategorie" name="idCategorie" onchange="location = this.value;">
-          <option value="display_plat.php" <?php echo $idCategorieFilter ? '' : 'selected'; ?>>All Categories</option>
+        <label for="nomCategorie">Select a category:</label>
+        <select id="nomCategorie" name="nomCategorie" onchange="location = this.value;">
+          <option value="display_plat.php" <?php echo $nomCategorieFilter ? '' : 'selected'; ?>>All Categories</option>
           <?php
-          foreach ($categories as $idCategorie) {
-              $selected = ($idCategorieFilter == $idCategorie['idCategorie']) ? 'selected' : '';
-              echo "<option value='display_plat.php?idCategorie={$idCategorie['idCategorie']}' $selected>{$idCategorie['idCategorie']}</option>";
+          foreach ($categories as $categorie) {
+              $selected = ($nomCategorieFilter == $categorie['Nom']) ? 'selected' : '';
+              echo "<option value='display_plat.php?nomCategorie={$categorie['Nom']}' $selected>{$categorie['Nom']}</option>";
           }
           ?>
         </select>
@@ -152,8 +152,8 @@ $dishData = query_database($queryDishes);
           <?php
           foreach ($dishData as $row) {
               echo "<tr>";
-              echo "<td>" . $row['Nom'] . "</td>";
-              echo "<td>" . $row['idCategorie'] . "</td>";
+              echo "<td>" . $row['PlatNom'] . "</td>";
+              echo "<td>" . $row['CategorieNom'] . "</td>";
               echo "<td>" . $row['prix'] . "</td>";
               echo "</tr>";
           }
