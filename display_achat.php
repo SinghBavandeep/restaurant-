@@ -198,9 +198,7 @@ function test_input($data)
                         <label for="quantity">Quantity:</label>
                         <input type="number" name="quantity" value="1" min="1" onchange="updateTotal(this.value, <?php echo $plat['prix']; ?>, 'total_<?php echo $plat['idPlat']; ?>')">
 
-                        <input type="hidden" name="totalprice" id="total_<?php echo $plat['idPlat']; ?>" value="<?php echo $plat['prix']; ?>">
-
-                        <div name="totalprice">Total: $<?php echo number_format($plat['prix'], 2); ?></div>
+                        <div name="totalprice" id="total_<?php echo $plat['idPlat']; ?>">Total: $<?php echo number_format($plat['prix'], 2); ?></div>
 
                         <input type="submit" value="Add to Cart">
                     </form>
@@ -224,7 +222,6 @@ function test_input($data)
 function updateTotal(quantity, unitPrice, totalId) {
     var total = quantity * unitPrice;
     document.getElementById(totalId).innerHTML = "Total: $" + total.toFixed(2);
-    document.getElementById('total_' + totalId).value = total; // Mise à jour de la valeur cachée pour le totalprice
 }
 </script>
 
