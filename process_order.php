@@ -6,51 +6,61 @@ if (session_status() == PHP_SESSION_NONE) {
 include('include/ConnectionBD/db_connection.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order'])) {
-    // Assuming you have user information in the session, replace this with your actual session data
-    $userEmail = $_SESSION['role'];
+    if (!isset($_SESSION['role'])) {
+        echo "Error: User role is not set!";
+        exit;
+    }
+
+    $role = $_SESSION['role'];
+    $userId = null;
+    $userEmail = null;
     $currentDate = date("Y-m-d");
+
+    if (isset($_SESSION[$role])) {
+        $userId = $_SESSION[$role];
+    }
+
+    if (isset($_SESSION[$role . '_email'])) {
+        $userEmail = $_SESSION[$role . '_email'];
+    }
 
     $conn = connect_to_database();
 
-    // Initialize variables
-    $userId = null;
-    $role = $_SESSION['role'];
+    $insertCommandeQuery = "";
 
-    // Set userId based on the role
     switch ($role) {
         case 'admin':
-            $userId = isset($_SESSION['admin']) ? $_SESSION['admin'] : null;
-            $query = "INSERT INTO commande (adminId, userEmail, dateCommande) VALUES (?, ?, ?)";
+            $insertCommandeQuery = "INSERT INTO commande (userEmail, dateCommande) VALUES (?, ?)";
             break;
 
         case 'client':
-            $userId = isset($_SESSION['IdClient']) ? $_SESSION['IdClient'] : null;
-            $query = "INSERT INTO commande (clientId, userEmail, dateCommande) VALUES (?, ?, ?)";
+            $insertCommandeQuery = "INSERT INTO commande (userEmail, dateCommande) VALUES (?, ?)";
             break;
 
         case 'employe':
-            $userId = isset($_SESSION['Idemploye']) ? $_SESSION['Idemploye'] : null;
-            $query = "INSERT INTO commande (employeId, userEmail, dateCommande) VALUES (?, ?, ?)";
+            $insertCommandeQuery = "INSERT INTO commande (userEmail, dateCommande) VALUES (?, ?)";
             break;
+
+        default:
+            echo "Error: Unknown user role!";
+            exit;
     }
 
-    if ($userId !== null) {
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("iss", $userId, $userEmail, $currentDate);
+    $stmt = $conn->prepare($insertCommandeQuery);
+    $stmt->bind_param("ss", $userEmail, $currentDate);
 
-        if ($stmt->execute()) {
-            // Order successfully added
-            // You can redirect the user or display a success message
-        } else {
-            // Error adding the order
-            // Handle the error (e.g., display an error message)
-        }
+    if ($stmt->execute()) {
+        // Order successfully added, now clear the cart and redirect
+        unset($_SESSION['cart']);  // Assuming 'cart' is the session variable storing the cart data
 
-        $stmt->close();
+        // Redirect to index.php
+        header("Location: index.php");
+        exit();
     } else {
-        // Handle the case where userId is not set
+        echo "Error adding the order: " . $stmt->error;
     }
 
+    $stmt->close();
     $conn->close();
 }
 ?>
