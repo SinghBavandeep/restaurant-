@@ -121,26 +121,33 @@ $cartItems = query_database($queryCartItems);
         <div class="w3-content w3-justify w3-text-black" id="about">
             <hr style="width:200px" class="w3-opacity w3-text-black">
             <table>
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Quantité</th>
-                        <th>Total Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($cartItems as $item): ?>
+                    <thead>
                         <tr>
-                            <td><?php echo $item['nom']; ?></td>
-                            <td><?php echo $item['quantite']; ?></td>
-                            <td><?php echo $item['totalprice']; ?></td>
+                            <th>Nom</th>
+                            <th>Quantité</th>
+                            <th>Total Price</th>
+                            <th>Action</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            <form action="process_order.php" method="post">
-                <button type="submit" name="order">Commander</button>
-            </form>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($cartItems as $item): ?>
+                            <tr>
+                                <td><?php echo $item['nom']; ?></td>
+                                <td><?php echo $item['quantite']; ?></td>
+                                <td><?php echo $item['totalprice']; ?></td>
+                                <td>
+                                    <form action="remove_achat.php" method="post">
+                                        <input type="hidden" name="item_id" value="<?php echo $item['idCart']; ?>">
+                                        <button type="submit" name="remove">Supprimer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <form action="process_order.php" method="post">
+                    <button type="submit" name="order">Commander</button>
+                </form>
         </div>
     </div>
   </div>

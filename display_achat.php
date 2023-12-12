@@ -37,10 +37,6 @@ $idPlatErr = $NomErr = $PrixErr = $CategorieErr = "";
 $idPlat = $Nom = $Prix = $idCategorie = "";
 $errors = 0;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // ... (Votre validation de formulaire ici)
-}
-
 function test_input($data)
 {
     $data = trim($data);
@@ -116,26 +112,22 @@ body {
     height: 150px; /* Hauteur maximale pour la div des détails du produit */
     overflow-y: auto; /* Ajout de la barre de défilement en cas de contenu dépassant la hauteur spécifiée */
 }
-
 @media only screen and (max-width: 600px) {
     .w3-quarter {
         width: 100%;
     }
 }
 </style>
-
 </head>
 <body class="w3-black">
     <?php
         include('include/Nav/nav.php')
     ?>
-
     <div class="about-container w3-text-black">
         <div class="w3-padding-large" id="main">
             <header class="w3-container w3-padding-32 w3-center" id="home">
                 <h1 class="w3-jumbo"><span class="w3-hide-small"> Buy</span></h1>
             </header>
-
             <!-- Filtre par catégorie -->
             <form method="get" action="display_achat.php">
                 <label for="nomCategorie">Filter by category:</label>
@@ -149,7 +141,6 @@ body {
                     ?>
                 </select>
             </form>
-
             <!-- Photo Grid -->
             <div class="w3-row-padding w3-padding-16" id="food">
                 <?php 
@@ -164,16 +155,12 @@ body {
                     <div class="product-details">
                         <h3><?php echo $plat['Nom']; ?></h3>
                         <p><?php echo $plat['description']; ?></p>
-
                         <form method="post" action="process_achat.php">
                             <input type="hidden" name="plat_id" value="<?php echo $plat['idPlat']; ?>">
-
                             <label for="quantity">Quantity:</label>
                             <input type="number" name="quantity" value="1" min="1" onchange="updateTotal(this.value, <?php echo $plat['prix']; ?>, 'total_<?php echo $plat['idPlat']; ?>')">
-
                             <!-- Use number_format to display the correct total price -->
                             <div name="totalprice" id="total_<?php echo $plat['idPlat']; ?>">Total: $<?php echo number_format($plat['prix'], 2); ?></div>
-
                             <input type="submit" value="Add to Cart">
                         </form>
                     </div>
@@ -185,9 +172,6 @@ body {
                     }
                 } ?>
             </div>
-
-            <!-- ... (Le reste de votre contenu ici) ... -->
-
         </div>
     </div>
 
