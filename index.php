@@ -52,7 +52,6 @@
       <!-- Header/Home -->
       <header class="w3-container w3-padding-32 w3-center" id="home">
         <h1 class="w3-jumbo"><span class="w3-hide-small">Welcome to PolyRestaurant</span></h1>
-        <p>Your Culinary Oasis</p>
       </header>
 
       <!-- About Section -->

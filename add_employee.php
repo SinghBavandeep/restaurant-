@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $Password = test_input($_POST["Password"]);
     }
 
-    // Add similar checks for other fields
+    // Ajoutez des vérifications similaires pour les autres champs
 
     if ($errors == 0) {
         // Assuming your table name is 'employe', adjust it if needed
@@ -149,6 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="submit" name="submit" value="S'inscrire">
             </form>
         </div>
+    </div>
 </body>
 
 </html>

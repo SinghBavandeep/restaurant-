@@ -20,7 +20,7 @@ if (isset($_SESSION['role'])) {
             <p>Panier</p>
         </a>';
     } elseif ($role === "employe") {
-        echo '<a href="employe_home.php" class="w3-bar-item w3-button w3-padding-large w3-black">
+        echo '<a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-black">
                 <i class="fa fa-home w3-xxlarge"></i>
                 <p>HOME</p>
             </a>';
@@ -29,7 +29,7 @@ if (isset($_SESSION['role'])) {
             <p>Panier</p>
         </a>';
     } else {
-        echo '<a href="index.php.php" class="w3-bar-item w3-button w3-padding-large w3-black">
+        echo '<a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-black">
                 <i class="fa fa-home w3-xxlarge"></i>
                 <p>HOME</p>
             </a>';
@@ -43,9 +43,10 @@ if (isset($_SESSION['role'])) {
     <?php
     // Common options for both admin, client, and employe
     echo '<a href="display_achat.php" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-            <i class="fa fa-plus-circle w3-xxlarge"></i>
-            <p>Plat</p>
+            <i class="fa fa-cutlery w3-xxlarge"></i>
+            <p>Commande</p>
         </a>';
+
 
     // Admin-specific options
     if ($role === "admin") {
@@ -55,7 +56,7 @@ if (isset($_SESSION['role'])) {
             </a>';
         echo '<a href="display_plat.php" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
                 <i class="fa fa-plus-circle w3-xxlarge"></i>
-                <p>Plat</p>
+                <p>Add plat</p>
             </a>';
         // Add other admin-specific options here
     }
@@ -64,7 +65,7 @@ if (isset($_SESSION['role'])) {
     if ($role === "employe") {
         echo '<a href="display_plat.php" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
                 <i class="fa fa-plus-circle w3-xxlarge"></i>
-                <p>Plat</p>
+                <p>Add plat</p>
             </a>';
         // Add other employe-specific options here
     }
@@ -86,8 +87,8 @@ if (isset($_SESSION['role'])) {
     </a>
 
     <a href="display_achat.php" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-        <i class="fa fa-plus-circle w3-xxlarge"></i>
-        <p>Plat</p>
+        <i class="fa fa-cutlery w3-xxlarge"></i>
+        <p>Commande</p>
     </a>
 
     <a href="login.php" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
