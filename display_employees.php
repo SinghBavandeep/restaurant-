@@ -1,5 +1,5 @@
 <?php
-include('db_connection.php');
+include('include/ConnectionBD/db_connection.php');
 
 function query_database($q)
 {
@@ -29,24 +29,16 @@ $query = "SELECT * FROM employe";
 $employeeData = query_database($query);
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>Display Employees</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<?php include('include/header/header.php') ?>
 <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
 <style>
 body, h1, h2, h3, h4, h5, h6 {font-family: "Montserrat", sans-serif}
 /* Add a background image */
 body {
-      background-image: url('image/fond.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
+    background-image: url('image/fond.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 /* Style for the "section */
 .container-white {
       background-color: rgba(255, 255, 255, 0.7);
@@ -55,6 +47,25 @@ body {
       margin-top: 20px;
     }
 .w3-row-padding img {margin-bottom: 12px}
+
+
+
+/* Style for the table */
+.employee-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.employee-table th, .employee-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.employee-table th {
+    background-color: #f2f2f2;
+}
+
 /* Set the width of the sidebar to 120px */
 .w3-sidebar {width: 120px;background: #222;}
 /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
@@ -64,36 +75,7 @@ body {
 </style>
 </head>
 <body class="w3-black">
-
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
-  </a>
-  <a href="display_employees.php" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>Employee</p>
-  </a>
-  <a href="display_plat.php" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-      <i class="fa fa-plus-circle w3-xxlarge"></i>
-      <p>Plat</p>
-    </a>
-  <a href="add_employee2.php" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-plus-circle w3-xxlarge"></i>
-    <p>Add2</p>
-  </a>
-</nav>
-
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="index.php" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="display_employees.php" class="w3-bar-item w3-button" style="width:25% !important">Employee</a>
-    <a href="add_employee.php" class="w3-bar-item w3-button" style="width:25% !important">Add</a>
-    <a href="add_employee2.php" class="w3-bar-item w3-button" style="width:25% !important">Add2</a>
-  </div>
-</div>
+  <?php include('include/Nav/nav.php') ?>
 
 <!-- Page Content -->
 <div class="w3-padding-large container-white" id="main">
@@ -112,14 +94,16 @@ body {
         <th>idEmploye</th>
         <th>Nom</th>
         <th>Role</th>
+        <th>Email</th>
         <!-- Add more columns as needed -->
       </tr>
       <?php
       foreach ($employeeData as $row) {
           echo "<tr>";
-          echo "<td>" . $row['idEmploye'] . "</td>";
+          echo "<td>" . $row['Idemploye'] . "</td>";
           echo "<td>" . $row['Nom'] . "</td>";
           echo "<td>" . $row['Role'] . "</td>";
+          echo "<td>" . $row['Email'] . "</td>";
           // Add more table cells for additional columns
           echo "</tr>";
       }
